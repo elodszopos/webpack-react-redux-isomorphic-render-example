@@ -1,28 +1,27 @@
-import React, { Component, PropTypes } from 'react'
+import React, { Component, PropTypes } from 'react';
 
 // testing `flat` styler
-import styler   from 'react-styling/flat'
+import styler from 'react-styling/flat';
 
-import { head } from 'react-isomorphic-render'
+import { head } from 'react-isomorphic-render';
 
-import Menu from '../components/menu'
+import Menu from '../components/menu';
 
 export default class Layout extends Component
 {
-	static propTypes =
-	{
-		children : PropTypes.object.isRequired
-	}
+  static propTypes =
+  {
+    children: PropTypes.object.isRequired,
+  }
 
-	render()
-	{
+  render()	{
 		// Html document metadata
 
-		const title = 'WebApp'
-		const description = 'A generic web application boilerplate'
+    const title = 'WebApp';
+    const description = 'A generic web application boilerplate';
 
-		const meta =
-		[
+    const meta =
+      [
 			// <meta charset="utf-8"/>
 			{ charset: 'utf-8' },
 
@@ -30,21 +29,21 @@ export default class Layout extends Component
 			{ name: 'viewport', content: 'width=device-width, initial-scale=1.0, user-scalable=no' },
 
 			// <meta property="..." content="..."/>
-			{ property: 'og:title',       content: 'International Bodybuilders Club' },
+			{ property: 'og:title', content: 'International Bodybuilders Club' },
 			{ property: 'og:description', content: 'Do some push ups' },
-			{ property: 'og:locale',      content: 'ru-RU' }
-		]
+			{ property: 'og:locale', content: 'ru-RU' },
+      ];
 
-		const menu_items =
-		[{
-			name: 'Home',
-			link: '/'
-		}, {
-			name: 'Users',
-			link: '/users'
-		}]
+    const menu_items =
+      [{
+        name: 'Home',
+        link: '/',
+      }, {
+        name: 'Users',
+        link: '/users',
+      }];
 
-		const markup = 
+    const markup =
 		(
 			<div className="content">
 				{head(title, meta)}
@@ -52,18 +51,18 @@ export default class Layout extends Component
 				{/* header */}
 				<header>
 					{/* Navigation */}
-					{/*<nav>*/}
+					{/* <nav>*/}
 						{/* main menu */}
-						<Menu items={menu_items}/>
-					{/*</nav>*/}
+						<Menu items={menu_items} />
+					{/* </nav>*/}
 				</header>
 
 				{this.props.children}
 
-				<footer></footer>
+				<footer />
 			</div>
-		)
+		);
 
-		return markup
-	}
+    return markup;
+  }
 }

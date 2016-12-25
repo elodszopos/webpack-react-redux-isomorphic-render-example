@@ -1,3 +1,3 @@
-import log from '../common/log'
+import log from '../common/log';
 
-export default log('webapp api')
+export default log('webapp api');

@@ -1,30 +1,29 @@
-import React, { Component, PropTypes } from 'react'
-import styler from 'react-styling'
+import React, { Component, PropTypes } from 'react';
+import styler from 'react-styling';
 
 export default class Button extends Component
 {
-	static propTypes =
-	{
-		text     : PropTypes.string.isRequired,
-		on_click : PropTypes.func.isRequired,
-		busy     : PropTypes.bool,
-		style    : PropTypes.object
-	}
+  static propTypes =
+  {
+    text: PropTypes.string.isRequired,
+    on_click: PropTypes.func.isRequired,
+    busy: PropTypes.bool,
+    style: PropTypes.object,
+  }
 
-	render()
-	{
-		const { busy, on_click, text } = this.props
+  render()	{
+    const { busy, on_click, text } = this.props;
 
-		const markup = 
+    const markup =
 		(
 			<div style={merge(style.container, this.props.style)}>
-				<span className="spinner" style={ busy ? style.spinner.show : style.spinner.hide }></span>
-				<button disabled={busy} onClick={on_click} style={ busy ? style.button.hide : style.button.show }>{text}</button>
+				<span className="spinner" style={busy ? style.spinner.show : style.spinner.hide} />
+				<button disabled={busy} onClick={on_click} style={busy ? style.button.hide : style.button.show}>{text}</button>
 			</div>
-		)
+		);
 
-		return markup
-	}
+    return markup;
+  }
 }
 
 const style = styler
@@ -55,4 +54,4 @@ const style = styler
 			opacity          : 0
 			transition       : opacity 200ms ease-out
 			transition-delay : 300ms
-`
+`;

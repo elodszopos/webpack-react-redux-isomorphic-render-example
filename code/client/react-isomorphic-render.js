@@ -1,5 +1,5 @@
-import routes  from './routes'
-import wrapper from './wrapper'
+import routes from './routes';
+import wrapper from './wrapper';
 
 export default
 {
@@ -14,16 +14,14 @@ export default
   // Wraps React page component with arbitrary elements (e.g. <Provider/>, etc; see an example below)
   wrapper,
 
-  on_store_created({ reload_reducer })
-  {
+  on_store_created({ reload_reducer }) {
     // (for Webpack users only)
     //
     // client side hot module reload for Redux reducers
     // http://webpack.github.io/docs/hot-module-replacement.html#accept
-    if (_development_ && module.hot)
-    {
+    if (_development_ && module.hot) {
       // this path must be equal to the path in the `require()` call in `create_store` above
-      module.hot.accept('./reducer', reload_reducer)
+      module.hot.accept('./reducer', reload_reducer);
     }
-  }
-}
+  },
+};

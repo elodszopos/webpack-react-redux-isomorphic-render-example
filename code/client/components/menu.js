@@ -1,34 +1,29 @@
-import React, { Component, PropTypes } from 'react'
-import ReactDOM from 'react-dom'
-import { PropTypes as React_router_prop_types } from 'react-router'
+import React, { Component } from 'react';
 
-import { Link, IndexLink } from 'react-router'
+import { Link, IndexLink } from 'react-router';
 
-import styler from 'react-styling'
+import styler from 'react-styling';
 
 export default class Menu extends Component
 {
-	render()
-	{
-		const markup =
-		(
-			<ul style={style.menu} className="menu">
-				{ this.props.items.map((item, i) => <li key={i} style={style.menu.item}>{this.render_link(item)}</li>) }
-			</ul>
-		)
+  render_link(item)	{
+    if (item.link === '/')		{
+      return <IndexLink to={item.link} style={style.menu.item.link} activeClassName="menu-item-selected" className="menu-item">{item.name}</IndexLink>;
+    }
 
-		return markup
-	}
+    return <Link to={item.link} style={style.menu.item.link} activeClassName="menu-item-selected" className="menu-item">{item.name}</Link>;
+  }
 
-	render_link(item)
-	{
-		if (item.link === '/')
-		{
-			return <IndexLink to={item.link} style={style.menu.item.link} activeClassName="menu-item-selected" className="menu-item">{item.name}</IndexLink>
-		}
+  render()	{
+    const markup =
+      (
+        <ul style={style.menu} className="menu">
+          { this.props.items.map((item, i) => <li key={i} style={style.menu.item}>{this.render_link(item)}</li>) }
+        </ul>
+      );
 
-		return <Link to={item.link} style={style.menu.item.link} activeClassName="menu-item-selected" className="menu-item">{item.name}</Link>
-	}
+    return markup;
+  }
 }
 
 const style = styler
@@ -46,4 +41,4 @@ const style = styler
 			link
 				display         : inline-block
 				text-decoration : none
-`
+`;

@@ -1,5 +1,5 @@
-require('../common/server entry')
+require('../common/server entry');
 
-global.log = require('./log')
+global.log = require('./log');
 
-require('./web server')
+require('./web server');

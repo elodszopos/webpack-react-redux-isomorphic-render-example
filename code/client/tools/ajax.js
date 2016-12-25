@@ -1,95 +1,79 @@
-import Promise from 'bluebird'
+import Promise from 'bluebird';
 
-export default function ajax(url, data, options)
-{
-	const resolver = Promise.pending()
+export default function ajax(url, data, options) {
+  const resolver = Promise.pending();
 
-	const request = new XMLHttpRequest()
+  const request = new XMLHttpRequest();
 
 	// request.withCredentials = yes
 
-	let method = 'get'
-	if (options && options.method) 
-	{
-		method = options.method
-	}
+  let method = 'get';
 
-	if (data && method == 'get')
-	{	
-		let first = true
+  if (options && options.method) 	{
+    method = options.method;
+  }
 
-		for (let key of Object.keys(data))
-		{
-			if (first)
-			{
-				url += '?'
-				first = false
-			}
-			else
-			{
-				url += '&'
-			}
+  if (data && method == 'get')	{
+    let first = true;
 
-			url += encodeURIComponent(key) + '=' + encodeURIComponent(data[key])
-		}
-	}
+    for (const key of Object.keys(data))		{
+      if (first)			{
+        url += '?';
+        first = false;
+      } else			{
+        url += '&';
+      }
 
-	request.open(method.toUpperCase(), url, true)
+      url += `${encodeURIComponent(key)}=${encodeURIComponent(data[key])}`;
+    }
+  }
 
-	request.onload = function(event)
-	{
-		if (this.status != 200)
-		{
-			return resolver.reject(this.status)
-		}
+  request.open(method.toUpperCase(), url, true);
 
-		let response = this.responseText
+  request.onload = function (event)	{
+    if (this.status != 200)		{
+      return resolver.reject(this.status);
+    }
 
-		if (this.getResponseHeader("Content-Type").starts_with('application/json'))
-		{
-			response = JSON.parse(response)
-		}
+    let response = this.responseText;
 
-		resolver.resolve(response)
-	}
+    if (this.getResponseHeader('Content-Type').starts_with('application/json'))		{
+      response = JSON.parse(response);
+    }
 
-	request.onerror = function(error)
-	{
-		resolver.reject(error)
-	}
+    resolver.resolve(response);
+  };
 
-	request.ontimeout = function()
-	{
-		resolver.reject('timeout')
-	}
+  request.onerror = function (error)	{
+    resolver.reject(error);
+  };
 
-	request.onabort = function()
-	{
-		resolver.reject('abort')
-	}
+  request.ontimeout = function ()	{
+    resolver.reject('timeout');
+  };
 
-	if (data && method == 'post')
-	{
-		const parameters = JSON.stringify(data)
+  request.onabort = function ()	{
+    resolver.reject('abort');
+  };
 
-		request.setRequestHeader("Content-Type", "application/json;charset=UTF-8")
+  if (data && method == 'post')	{
+    const parameters = JSON.stringify(data);
+
+    request.setRequestHeader('Content-Type', 'application/json;charset=UTF-8');
 		// request.setRequestHeader("Content-length", parameters.length)
-		request.send(parameters)
-	}
-	else
-	{
-		request.send()
-	}
+    request.send(parameters);
+  } else	{
+    request.send();
+  }
 
-	return resolver.promise
+  return resolver.promise;
 }
 
-for (let method of ['get', 'post', 'head'])
-{
-	ajax[method] = (url, data, options) =>
-	{
-		options = options || {}
-		options.method = method
-		return ajax(url, data, options)
-	}
+for (const method of ['get', 'post', 'head']) {
+  ajax[method] = (url, data, options) =>	{
+    options = options || {};
+    options.method = method;
+
+    return ajax(url, data, options);
+  };
 }

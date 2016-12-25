@@ -27,6 +27,7 @@ gh-pages/
 
 # workspace files are user-specific
 *.sublime-workspace
+.idea
 
 # test coverage folder
 coverage
