@@ -1,1 +1,5 @@
-export users from './users';
+import { reducer as users } from './users';
+
+export {
+  users,
+};

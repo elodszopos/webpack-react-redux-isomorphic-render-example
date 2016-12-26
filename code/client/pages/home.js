@@ -35,4 +35,4 @@ const Page = () => (
 	</section>
 );
 
-export default Page;
+export { Page };

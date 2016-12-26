@@ -107,6 +107,10 @@ const handlers = {
 
 // applies a handler based on the action type
 // (is copy & paste'd for all action response handlers)
-export default function (state = initialState, actionData = {}) {
+function reducer(state = initialState, actionData = {}) {
   return (handlers[actionData.type] || ((result, state) => state))(actionData.result || actionData.error || actionData, state); // eslint-disable-line no-shadow
 }
+
+export {
+  reducer,
+};

@@ -1,6 +1,6 @@
 require('../common/server.entry');
 const webService = require('web-service');
-const log = require('../common/log')('webapp.api');
+const log = require('../common/log').create('webapp.api');
 const apiExample = require('./example');
 const configuration = require('../common/configuration');
 

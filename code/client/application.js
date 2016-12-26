@@ -2,7 +2,7 @@
 // (including generators, which means async/await)
 import 'babel-polyfill';
 import { render } from 'react-isomorphic-render/redux';
-import common from './react-isomorphic-render';
+import { config } from './react-isomorphic-render';
 
 require('../../assets/styles/style.scss');
 
@@ -13,4 +13,4 @@ render({
 
 	// enable/disable Redux dev-tools
   devtools: __DEVTOOLS__ ? require('./devtools') : undefined, // eslint-disable-line global-require
-}, common);
+}, config);

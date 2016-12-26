@@ -1,13 +1,13 @@
 import React from 'react';
-import webPageServer from 'react-isomorphic-render/server';
+import webPageServer from 'react-isomorphic-render/build/page-server/web server';
 import { devtools } from 'universal-webpack';
-import Log from '../../webpack/servers/common/log';
+import { create as createLogger } from '../../webpack/servers/common/log';
 import configuration from '../../configuration.defaults';
-import common from '../client/react-isomorphic-render';
+import { config } from '../client/react-isomorphic-render';
 
-const log = Log('webpage.renderer');
+const log = createLogger('webpage.renderer');
 
-export default function (parameters) {
+function createPageServer(parameters) {
   // Starts webpage rendering server
   const server = webPageServer({
     // Http Urls to javascripts and (optionally) CSS styles
@@ -62,7 +62,7 @@ export default function (parameters) {
         return null;
       },
     },
-  }, common);
+  }, config);
 
   // Start webpage rendering server
   server.listen(configuration.webpageServer.http.port, (error) => {
@@ -74,3 +74,5 @@ export default function (parameters) {
     log.info(`Webpage server is listening at http://localhost:${configuration.webpageServer.http.port}`);
   });
 }
+
+export default createPageServer;

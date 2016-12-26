@@ -1,13 +1,12 @@
 import React from 'react';
+import Route from 'react-router/lib/Route';
+import IndexRoute from 'react-router/lib/IndexRoute';
+import { Layout } from './pages/layout';
+import { NotFound } from './pages/not found';
+import { Users } from './pages/users';
+import { Page as Home } from './pages/home';
 
-import { Route, IndexRoute } from 'react-router';
-
-import Layout from './pages/layout';
-import NotFound from './pages/not found';
-import Users from './pages/users';
-import Home from './pages/home';
-
-export default function () { // ({ dispatch, getState })
+function getRoutes() {
   return (
 		<Route path="/" component={Layout}>
 			<IndexRoute component={Home} />
@@ -16,3 +15,5 @@ export default function () { // ({ dispatch, getState })
 		</Route>
   );
 }
+
+export { getRoutes };

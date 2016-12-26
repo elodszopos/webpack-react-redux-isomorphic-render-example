@@ -1,5 +1,5 @@
 require('../common/server.entry');
-const log = require('../common/log')('webapp.server');
+const log = require('../common/log').create('webapp.server');
 const path = require('path');
 const webService = require('web-service');
 const config = require('../common/configuration');

@@ -3,7 +3,7 @@ import { Provider } from 'react-redux';
 
 const { object, node } = PropTypes;
 
-export default class Wrapper extends PureComponent {
+export class Wrapper extends PureComponent {
   static propTypes = {
     store: object.isRequired,
     children: node.isRequired,

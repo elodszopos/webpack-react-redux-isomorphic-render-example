@@ -1,17 +1,17 @@
-import routes from './routes';
-import wrapper from './wrapper';
+import { getRoutes } from './routes';
+import { Wrapper } from './wrapper';
 
-export default {
+const config = {
   // Redux reducer
   // (either an object or a function returning an object)
   reducer: () => require('./reducer'), // eslint-disable-line global-require
 
   // React-router routes
   // (either a `<Route/>` element or a `function({ store })` returning a `<Route/>` element)
-  routes,
+  routes: getRoutes,
 
   // Wraps React page component with arbitrary elements (e.g. <Provider/>, etc; see an example below)
-  wrapper,
+  wrapper: Wrapper,
 
   on_store_created({ reload_reducer }) {
     // (for Webpack users only)
@@ -23,4 +23,8 @@ export default {
       module.hot.accept('./reducer', reload_reducer);
     }
   },
+};
+
+export {
+  config,
 };

@@ -31,7 +31,7 @@ function renderLink(item)	{
 
 const { array } = PropTypes;
 
-export default class Menu extends PureComponent {
+class Menu extends PureComponent {
   static propTypes = {
     items: array,
   };
@@ -46,3 +46,5 @@ export default class Menu extends PureComponent {
     );
   }
 }
+
+export { Menu };

@@ -2,9 +2,9 @@ import React, { PureComponent, PropTypes } from 'react';
 
 import { head } from 'react-isomorphic-render';
 
-import Menu from '../components/menu';
+import { Menu } from '../components/menu';
 
-export default class Layout extends PureComponent {
+export class Layout extends PureComponent {
   static propTypes = {
     children: PropTypes.object.isRequired,
   };

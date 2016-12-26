@@ -60,7 +60,7 @@ const { func, array, bool, object } = PropTypes;
     dismissAddingError,
   }, dispatch),
 )
-export default class Page extends Component {
+class Users extends Component {
   static propTypes = {
     getUsers: func.isRequired,
     addUser: func.isRequired,
@@ -204,3 +204,5 @@ export default class Page extends Component {
     return markup;
   }
 }
+
+export { Users };
