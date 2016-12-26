@@ -9,34 +9,30 @@ const configuration = baseConfig({
 
 configuration.devtool = 'inline-eval-cheap-source-map';
 
-configuration.plugins.push(
-  // environment variables
-  new webpack.DefinePlugin({
-    'process.env': {
-      NODE_ENV: JSON.stringify('development'),
-      BABEL_ENV: JSON.stringify('development/client'),
-    },
+configuration.plugins.push(new webpack.DefinePlugin({
+  __PRODUCTION__: false,
+  __DEVELOPMENT__: true,
+  __DEVTOOLS__: false,
+  'process.env': {
+    NODE_ENV: JSON.stringify('development'),
+    BABEL_ENV: JSON.stringify('development/client'),
+  },
+}));
 
-    __PRODUCTION__: false,
-    __DEVELOPMENT__: true,
-    __DEVTOOLS__: false,  // enable/disable redux-devtools
-  }),
+configuration.plugins.push(new webpack.HotModuleReplacementPlugin());
 
-  // faster code reload on changes
-  new webpack.HotModuleReplacementPlugin(),
+// new webpack.optimize.CommonsChunkPlugin('common', 'common.[hash].js')
 
-  // // extracts common javascript into a separate file (works)
-  // new webpack.optimize.CommonsChunkPlugin('common', 'common.[hash].js')
-);
+const devServerConfig = appConfig.development.webpack.development_server;
 
 // enable webpack development server
 configuration.entry.main = [
-  `webpack-hot-middleware/client?path=http://${appConfig.development.webpack.development_server.host}:${appConfig.development.webpack.development_server.port}/__webpack_hmr`, // eslint-disable-line
+  `webpack-hot-middleware/client?path=http://${devServerConfig.host}:${devServerConfig.port}/__webpack_hmr`, // eslint-disable-line
   configuration.entry.main,
 ];
 
 // network path for static files: fetch all statics from webpack development server
-configuration.output.publicPath = `http://${appConfig.development.webpack.development_server.host}:${appConfig.development.webpack.development_server.port}${configuration.output.publicPath}`;  // eslint-disable-line
+configuration.output.publicPath = `http://${devServerConfig.host}:${devServerConfig.port}${configuration.output.publicPath}`;  // eslint-disable-line
 
 // Add React Hot Module Replacement plugin to `babel-loader`
 
