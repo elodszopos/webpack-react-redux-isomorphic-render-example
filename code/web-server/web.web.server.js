@@ -1,11 +1,11 @@
 import path from 'path';
 
-import web_service from 'web-service';
+import webService from 'web-service';
 
-const web = web_service({ log });
+const web = webService({ log });
 
 // serve static files
-web.files('/assets', path.join(Root_folder, 'build', 'assets'));
+web.files('/assets', path.join(rootFolder, 'build', 'assets'));
 
 // if it's not a static file url:
 
