@@ -1,9 +1,10 @@
 const baseConfiguration = require('./webpack.config.server');
 const applicationConfiguration = require('./servers/common/configuration');
 
-const configuration = { ...baseConfiguration };
+const configuration = Object.assign({}, baseConfiguration);
+const devServerSettings = applicationConfiguration.development.webpack.development_server;
 
 // Network path for static files: fetch all statics from webpack development server
-configuration.output.publicPath = `http://${applicationConfiguration.development.webpack.development_server.host}:${applicationConfiguration.development.webpack.development_server.port}${configuration.output.publicPath}`; // eslint-disable-line
+configuration.output.publicPath = `http://${devServerSettings.host}:${devServerSettings.port}${configuration.output.publicPath}`; // eslint-disable-line
 
 module.exports = configuration;

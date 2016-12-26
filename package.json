@@ -86,7 +86,7 @@
     "development": "npm-run-all --parallel development-build-client development-build-server development-server",
     "development-prepare-server-build": "universal-webpack --settings ./webpack/universal-webpack-settings.js prepare",
     "development-build-client": "babel-node ./webpack/webpack-dev-server.js",
-    "development-build-server": "webpack --config ./webpack/webpack.config.server.development.entry.js --watch --colors --display-error-details",
+    "development-build-server": "webpack --config ./webpack/webpack.config.server.development.js --watch --colors --display-error-details",
     "development-api-server": "nodemon ./webpack/servers/api-server/api.server.js --watch ./webpack/servers/api-server --watch ./webpack/servers/common",
     "development-page-server": "nodemon ./code/page-server/entry.js --watch ./code/page-server --watch ./webpack/servers/common --watch ./build/server",
     "development-page-server-delayed": "npm-run-all delay development-page-server",
