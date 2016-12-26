@@ -1,15 +1,15 @@
 import React from 'react';
-import webpageServer from 'react-isomorphic-render/server';
+import webPageServer from 'react-isomorphic-render/server';
 import { devtools } from 'universal-webpack';
-
+import Log from '../../webpack/servers/common/log';
+import configuration from '../../configuration.defaults';
 import common from '../client/react-isomorphic-render';
-import Log from '../common/log';
 
 const log = Log('webpage.renderer');
 
 export default function (parameters) {
   // Starts webpage rendering server
-  const server = webpageServer({
+  const server = webPageServer({
     // Http Urls to javascripts and (optionally) CSS styles
     // which will be insterted into the <head/> element of the resulting Html webpage
     // (as <script src="..."/> and <link rel="style" href="..."/> respectively)
@@ -39,8 +39,8 @@ export default function (parameters) {
 
     // Http host and port for executing all client-side ajax requests on server-side
     application: {
-      host: configuration.web_server.http.host,
-      port: configuration.web_server.http.port,
+      host: configuration.webServer.http.host,
+      port: configuration.webServer.http.port,
     },
 
     html: {
@@ -65,12 +65,12 @@ export default function (parameters) {
   }, common);
 
   // Start webpage rendering server
-  server.listen(configuration.webpage_server.http.port, (error) => {
+  server.listen(configuration.webpageServer.http.port, (error) => {
     if (error) {
       log.error('Webpage rendering server shutdown due to an error', error);
       throw error;
     }
 
-    log.info(`Webpage server is listening at http://localhost:${configuration.webpage_server.http.port}`);
+    log.info(`Webpage server is listening at http://localhost:${configuration.webpageServer.http.port}`);
   });
 }

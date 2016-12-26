@@ -1,17 +1,17 @@
 module.exports = {
-  api_server: {
+  apiServer: {
     http: {
       host: '127.0.0.1',
       port: 3002,
     },
   },
-  webpage_server: {
+  webpageServer: {
     http: {
       host: '127.0.0.1',
       port: 3003,
     },
   },
-  web_server: {
+  webServer: {
     http: {
       host: '127.0.0.1',
       port: 3000,

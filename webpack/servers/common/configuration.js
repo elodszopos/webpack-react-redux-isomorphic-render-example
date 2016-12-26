@@ -1,7 +1,8 @@
+/* eslint import/no-dynamic-require: 0 */
 const minimist = require('minimist');
 
-const configuration = require('../../configuration.defaults');
-const specificConfig = require('../../configuration');
+const configuration = require('../../../configuration.defaults');
+const specificConfig = require('../../../configuration');
 
 const extendedConfig = Object.assign({}, configuration, specificConfig);
 

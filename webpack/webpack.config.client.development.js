@@ -1,6 +1,6 @@
 const webpack = require('webpack');
 const baseConfig = require('./webpack.config.client');
-const appConfig = require('../code/common/configuration');
+const appConfig = require('./servers/common/configuration');
 
 const configuration = baseConfig({
   development: true,

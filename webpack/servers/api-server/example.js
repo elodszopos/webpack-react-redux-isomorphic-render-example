@@ -1,13 +1,9 @@
-// This is an example of a simple REST Api implementation.
-//
-// For debugging you can use "Advanced REST Client" for Google Chrome:
-// https://chrome.google.com/webstore/detail/advanced-rest-client/hgmloofddffdnphfgcellkdfbfbjeloo
-
 const webService = require('web-service');
 
 const errors = webService.errors;
 
 const users = {};
+
 let idCounter = 0;
 
 module.exports = function exampleApi(api) {

@@ -5,7 +5,17 @@ const bunyan = require('bunyan');
 const Stream = require('stream');
 const moment = require('moment');
 const { terminal } = require('print-error');
-const levels = require('./log.levels');
+
+const root = path.resolve(__dirname, '../../..');
+
+const levels = {
+  10: 'Trace',
+  20: 'Debug',
+  30: 'Generic',
+  40: 'Warning',
+  50: 'Error',
+  60: 'Fatal',
+};
 
 function printError(error) {
   console.log(terminal(error));
@@ -102,7 +112,7 @@ module.exports = function create(name) {
     },
   };
 
-  const logPath = path.resolve(rootFolder, 'log', `${name}.txt`);
+  const logPath = path.resolve(root, 'log', `${name}.txt`);
 
   fs.ensureDirSync(path.dirname(logPath));
 

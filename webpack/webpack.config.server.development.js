@@ -1,5 +1,5 @@
 const baseConfiguration = require('./webpack.config.server');
-const applicationConfiguration = require('../code/common/configuration');
+const applicationConfiguration = require('./servers/common/configuration');
 
 const configuration = { ...baseConfiguration };
 

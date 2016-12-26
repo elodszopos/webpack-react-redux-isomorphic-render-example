@@ -3,7 +3,7 @@ const webpack = require('webpack');
 const devMiddleware = require('webpack-dev-middleware');
 const hotMiddleware = require('webpack-hot-middleware');
 const configuration = require('./webpack.config.client.development');
-const appConfig = require('../code/common/configuration');
+const appConfig = require('./servers/common/configuration');
 
 const options = {
   quiet: true,

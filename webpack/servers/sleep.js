@@ -15,9 +15,4 @@ if (delay != parseInt(delay, 10)) {
   return console.error(`${preamble}invalid delay: "${delay}"`);
 }
 
-// console.log(preamble + 'sleeping for ' + delay + ' milliseconds')
-
-setTimeout(() => {
-  // console.log(preamble + 'woken up after ' + delay + ' milliseconds')
-  process.exit(0);
-}, delay);
+setTimeout(() => { process.exit(0); }, delay);

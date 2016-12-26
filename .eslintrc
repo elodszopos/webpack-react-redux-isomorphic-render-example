@@ -282,12 +282,6 @@
     "sinon": true,
     "shallow": true,
     "mount": true,
-    "clone": true,
     "testHelpers": true,
-    "log": true,
-    "configuration": true,
-    "extend": true,
-    "rootFolder": true,
-    "exists": true
   }
 }
