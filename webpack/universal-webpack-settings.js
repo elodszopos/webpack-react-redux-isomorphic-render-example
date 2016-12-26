@@ -1,6 +1,6 @@
 module.exports = {
   server: {
-    input: './code/page-server/web server.js',
+    input: './code/page-server/page.web.server.js',
     output: './build/server/server.js',
   },
 };

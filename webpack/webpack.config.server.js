@@ -1,5 +1,5 @@
-import { server_configuration } from 'universal-webpack';
-import settings from './universal-webpack-settings';
-import configuration from './webpack.config';
+const universalWebpack = require('universal-webpack');
+const configuration = require('./webpack.config');
+const universalWebpackConfig = require('./common').universalWebpackConfig;
 
-export default server_configuration(configuration, settings);
+module.exports = universalWebpack.server_configuration(configuration, universalWebpackConfig);

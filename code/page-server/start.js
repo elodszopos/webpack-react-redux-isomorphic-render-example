@@ -1,7 +1,7 @@
-import 'source-map-support/register';
+require('source-map-support/register');
 
-import { server } from 'universal-webpack';
-import settings from '../../webpack/universal-webpack-settings';
-import configuration from '../../webpack/webpack.config';
+const universalWebpack = require('universal-webpack');
+const settings = require('../../webpack/universal-webpack-settings');
+const configuration = require('../../webpack/webpack.config');
 
-server(configuration, settings);
+universalWebpack.server(configuration, settings);

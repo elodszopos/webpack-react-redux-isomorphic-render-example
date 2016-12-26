@@ -1,8 +1,8 @@
-import { api } from 'web-service';
+const webService = require('web-service');
 
 const apiExample = require('./api/example');
 
-const apiService = api({
+const apiService = webService.api({
   name: 'Example API service',
   api: [apiExample],
   log,

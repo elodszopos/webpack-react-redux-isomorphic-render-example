@@ -1,21 +1,15 @@
-// import fs from 'fs'
-import path from 'path';
-import minimist from 'minimist';
+const minimist = require('minimist');
 
-import _ from './language';
+const configuration = require('../../configuration.defaults');
+const specificConfig = require('../../configuration');
 
-import configuration from '../../configuration.defaults';
-import specific_configuration from '../../configuration';
+const extendedConfig = Object.assign({}, configuration, specificConfig);
 
-Object.extend(configuration, specific_configuration);
-export default configuration;
+module.exports = extendedConfig;
 
-// можно будет использовать этот файл в shell'овых скриптах
-// (команда: node configuration.coffee --path="...")
+const args = minimist(process.argv.slice(2));
 
-const process_arguments = minimist(process.argv.slice(2));
-
-if (process_arguments.path) {
-  console.log(Object.path(configuration, process_arguments.path));
+if (args.path) {
+  console.log(Object.path(configuration, args.path)); // eslint-disable-line no-console
   process.exit();
 }

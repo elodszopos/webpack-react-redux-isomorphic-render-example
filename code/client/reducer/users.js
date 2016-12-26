@@ -1,124 +1,112 @@
-const initial_state =
-  {
-    loaded: false,
-  };
+const initialState = {
+  loaded: false,
+};
 
-const handlers =
-  {
-    'retrieving users': (result, state) =>	{
-      const new_state =
-        {
-          ...state,
-          loading: true,
-          loading_error: undefined,
-        };
+const handlers = {
+  retrievingUsers: (result, state) => {
+    const newState = {
+      ...state,
+      loading: true,
+      loading_error: undefined,
+    };
 
-      return new_state;
-    },
+    return newState;
+  },
 
-    'users retrieved': (result, state) =>	{
-      const new_state =
-        {
-          ...state,
-          loading: false,
-          loaded: true,
-          stale: false,
-          users: result,
-        };
+  usersRetrieved: (result, state) => {
+    const newState = {
+      ...state,
+      loading: false,
+      loaded: true,
+      stale: false,
+      users: result,
+    };
 
-      return new_state;
-    },
+    return newState;
+  },
 
-    'users retrieval failed': (error, state) =>	{
-      const new_state =
-        {
-          ...state,
-          loading: false,
-          loading_error: error,
-        };
+  usersRetrievalFailed: (error, state) => {
+    const newState = {
+      ...state,
+      loading: false,
+      loading_error: error,
+    };
 
-      return new_state;
-    },
+    return newState;
+  },
 
-    'adding user': (result, state) =>	{
-      const new_state =
-        {
-          ...state,
-          adding: true,
-        };
+  addingUsers: (result, state) => {
+    const newState = {
+      ...state,
+      adding: true,
+    };
 
-      return new_state;
-    },
+    return newState;
+  },
 
-    'user added': (result, state) =>	{
-      const new_state =
-        {
-          ...state,
-          adding: false,
-          stale: true,
-        };
+  userAdded: (result, state) => {
+    const newState = {
+      ...state,
+      adding: false,
+      stale: true,
+    };
 
-      return new_state;
-    },
+    return newState;
+  },
 
-    'adding user failed': (error, state) =>	{
-      const new_state =
-        {
-          ...state,
-          adding: false,
-          adding_error: error,
-        };
+  addingUserFailed: (error, state) => {
+    const newState = {
+      ...state,
+      adding: false,
+      addingError: error,
+    };
 
-      return new_state;
-    },
+    return newState;
+  },
 
-    'adding error dismissed': (result, state) =>	{
-      const new_state =
-        {
-          ...state,
-          adding_error: undefined,
-        };
+  addingErrorDismissed: (result, state) => {
+    const newState = {
+      ...state,
+      addingError: undefined,
+    };
 
-      return new_state;
-    },
+    return newState;
+  },
 
-    'deleting user': (result, state) =>	{
-      const new_state =
-        {
-          ...state,
-          deleting: true,
-        };
+  deletingUser: (result, state) => {
+    const newState = {
+      ...state,
+      deleting: true,
+    };
 
-      return new_state;
-    },
+    return newState;
+  },
 
-    'user deleted': (result, state) =>	{
-      const new_state =
-        {
-          ...state,
-          deleting: false,
-          stale: true,
-        };
+  userDeleted: (result, state) => {
+    const newState = {
+      ...state,
+      deleting: false,
+      stale: true,
+    };
 
-      return new_state;
-    },
+    return newState;
+  },
 
-    'deleting user failed': (error, state) =>	{
-      const new_state =
-        {
-          ...state,
-          deleting: false,
-          deleting_error: error,
-        };
+  deletingUserFailed: (error, state) => {
+    const newState = {
+      ...state,
+      deleting: false,
+      deleting_error: error,
+    };
 
-      return new_state;
-    },
-  };
+    return newState;
+  },
+};
 
 // for this module to work should be added to reducers/index.js
 
 // applies a handler based on the action type
 // (is copy & paste'd for all action response handlers)
-export default function (state = initial_state, action_data = {}) {
-  return (handlers[action_data.type] || ((result, state) => state))(action_data.result || action_data.error || action_data, state);
+export default function (state = initialState, actionData = {}) {
+  return (handlers[actionData.type] || ((result, state) => state))(actionData.result || actionData.error || actionData, state); // eslint-disable-line no-shadow
 }

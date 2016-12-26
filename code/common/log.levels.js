@@ -1,4 +1,4 @@
-export default {
+module.exports = {
   10: 'Trace',
   20: 'Debug',
   30: 'Generic',

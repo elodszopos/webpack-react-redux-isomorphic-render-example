@@ -4,39 +4,35 @@
 //
 // takes a string
 // returns an object { protocol, host, port, path, query, anchor, ... }
-function parse_uri(uri = document.location) {
-  const options =
-    {
-      strictMode: false,
-      key:
-      [
-        'source',   // protocol:
-        'protocol',
-        'authority', // //user:password@
-        'userInfo', // user:password
-        'user',
-        'password',
-        'host',
-        'port',
-        'relative',
-        'path',
-        'directory',
-        'file',
-        'query',
-        'anchor',
-      ],
-      query:
-      {
-        name: 'parameters',
-        parser: /(?:^|&)([^&=]*)=?([^&]*)/g,
-      },
-      parser:
-      {
-			//            protocol  :     //      user        :password    @  host          :port      path (relative,directory,file) ? query       #anchor
-        strict: /^(?:([^:\/?#]+):)?(?:\/\/((?:(([^:@]*)(?::([^:@]*))?)?@)?([^:\/?#]*)(?::(\d*))?))?((((?:[^?#\/]*\/)*)([^?#]*))(?:\?([^#]*))?(?:#(.*))?)/,
-        loose: /^(?:(?![^:@]+:[^:@\/]*@)([^:\/?#.]+):)?(?:\/\/)?((?:(([^:@]*)(?::([^:@]*))?)?@)?([^:\/?#]*)(?::(\d*))?)(((\/(?:[^?#](?![^?#\/]*\.[^?#\/.]+(?:[?#]|$)))*\/?)?([^?#\/]*))(?:\?([^#]*))?(?:#(.*))?)/,
-      },
-    };
+function parseUri(uri = document.location) {
+  const options = {
+    strictMode: false,
+    key: [
+      'source',   // protocol:
+      'protocol',
+      'authority', // //user:password@
+      'userInfo', // user:password
+      'user',
+      'password',
+      'host',
+      'port',
+      'relative',
+      'path',
+      'directory',
+      'file',
+      'query',
+      'anchor',
+    ],
+    query: {
+      name: 'parameters',
+      parser: /(?:^|&)([^&=]*)=?([^&]*)/g,
+    },
+    parser: {
+      //            protocol  :     //      user        :password    @  host          :port      path (relative,directory,file) ? query       #anchor
+      strict: /^(?:([^:\/?#]+):)?(?:\/\/((?:(([^:@]*)(?::([^:@]*))?)?@)?([^:\/?#]*)(?::(\d*))?))?((((?:[^?#\/]*\/)*)([^?#]*))(?:\?([^#]*))?(?:#(.*))?)/, // eslint-disable-line
+      loose: /^(?:(?![^:@]+:[^:@\/]*@)([^:\/?#.]+):)?(?:\/\/)?((?:(([^:@]*)(?::([^:@]*))?)?@)?([^:\/?#]*)(?::(\d*))?)(((\/(?:[^?#](?![^?#\/]*\.[^?#\/.]+(?:[?#]|$)))*\/?)?([^?#\/]*))(?:\?([^#]*))?(?:#(.*))?)/, // eslint-disable-line
+    },
+  };
 
   const matches = options.parser[options.strictMode ? 'strict' : 'loose'].exec(uri);
 
@@ -44,15 +40,15 @@ function parse_uri(uri = document.location) {
 
   let i = 14;
 
-  while (i--)	{
+  while (i--) {
     result[options.key[i]] = matches[i] || '';
   }
 
   result[options.query.name] = {};
 
-	// options.key[12] === "query"
+  // options.key[12] === "query"
   result[options.key[12]].replace(options.query.parser, ($0, $1, $2) => {
-    if ($1)		{
+    if ($1) {
       result[options.query.name][$1] = $2;
     }
   });
@@ -60,35 +56,34 @@ function parse_uri(uri = document.location) {
   return result;
 }
 
-export default class Uri
-{
-  constructor(uri)	{
-    const parsed = parse_uri(uri);
+export default class Uri {
+  constructor(uri) {
+    const parsed = parseUri(uri);
 
-    for (const key of Object.keys(parsed))		{
+    for (const key of Object.keys(parsed)) {
       this[key] = parsed[key];
     }
 
-		// this.protocol = this.protocol || 'http'
+    // this.protocol = this.protocol || 'http'
     this.path = decodeURI(this.path);
 
-    for (const key of Object.keys(this.parameters))		{
-      const decoded_key = decodeURIComponent(key);
-      const decoded_value = decodeURIComponent(this.parameters[key]);
+    for (const key of Object.keys(this.parameters)) {
+      const decodedKey = decodeURIComponent(key);
+      const decodedValue = decodeURIComponent(this.parameters[key]);
 
-      this.parameters[decoded_key] = decoded_value;
+      this.parameters[decodedKey] = decodedValue;
 
-      if (decoded_key !== key)			{
+      if (decodedKey !== key) {
         delete this.parameters[key];
       }
 
-      if (!exists(this[key]))			{
-        this[key] = decoded_value;
+      if (!this[key]) {
+        this[key] = decodedValue;
       }
     }
   }
 
-  to_relative_url()	{
+  toRelativeUrl() {
     this.protocol = '';
     this.host = '';
     this.port = '';
@@ -96,61 +91,61 @@ export default class Uri
     return this.print();
   }
 
-  no_parameters()	{
+  noParameters() {
     this.parameters = {};
 
     return this;
   }
 
-  parameter(parameter, value)	{
+  parameter(parameter, value) {
     this.parameters[parameter] = value;
 
     return this;
   }
 
-  remove_parameter(parameter)	{
+  removeParameter(parameter) {
     delete this.parameters[parameter];
 
     return this;
   }
 
-  print(options)	{
-    options = extend({ machine: true }, options);
+  print(options = {}) {
+    options = { ...options, machine: true }; // eslint-disable-line no-param-reassign
 
     let uri = '';
 
-    if (this.protocol)		{
-      let omit_protocol = false;
+    if (this.protocol) {
+      let omitProtocol = false;
 
-      if (options.omit_common_protocols)			{
-        if (this.protocol === 'http' || this.protocol === 'https')				{
-          omit_protocol = true;
+      if (options.omit_common_protocols) {
+        if (this.protocol === 'http' || this.protocol === 'https') {
+          omitProtocol = true;
         }
       }
 
-      if (!omit_protocol)			{
+      if (!omitProtocol) {
         uri += `${this.protocol}://`;
       }
     }
 
-    if (this.host)		{
+    if (this.host) {
       uri += this.host + (this.port ? `:${this.port}` : '');
     }
 
     uri += this.path; // encodeURI(this.path)
 
-    let first_parameter = true;
+    let firstParam = true;
 
-    for (const key of Object.keys(this.parameters))		{
-      uri += first_parameter ? '?' : '&';
+    for (const key of Object.keys(this.parameters)) {
+      uri += firstParam ? '?' : '&';
       uri += options.machine ? encodeURIComponent(key) : key;
       uri += '=';
       uri += options.machine ? encodeURIComponent(this.parameters[key]) : this.parameters[key];
 
-      first_parameter = false;
+      firstParam = false;
     }
 
-    if (this.anchor)		{
+    if (this.anchor) {
       uri += '#';
       uri += options.machine ? encodeURIComponent(this.anchor) : this.anchor;
     }
@@ -160,9 +155,9 @@ export default class Uri
 }
 
 // testing
-(function () {
-  function assert(left, right)	{
-    if (left !== right)		{
+(function test() {
+  function assert(left, right) {
+    if (left !== right) {
       throw new Error(`Assertion failed: got "${left}", expected "${right}"`);
     }
   }
@@ -171,5 +166,5 @@ export default class Uri
   assert(new Uri('http://гугл.рф?раз=два#три').print({ machine: false }), 'http://гугл.рф?раз=два#три');
   assert(new Uri('google.ru').print(), 'google.ru');
 
-  assert(parse_uri('http://google.ru/root/path/test?parameters').path, '/root/path/test');
+  assert(parseUri('http://google.ru/root/path/test?parameters').path, '/root/path/test');
 }());

@@ -5,7 +5,7 @@ import { devtools } from 'universal-webpack';
 import common from '../client/react-isomorphic-render';
 import Log from '../common/log';
 
-const log = Log('webpage renderer');
+const log = Log('webpage.renderer');
 
 export default function (parameters) {
   // Starts webpage rendering server

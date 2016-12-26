@@ -1,3 +1,4 @@
+/* eslint no-param-reassign: 0 */
 import Promise from 'bluebird';
 
 export default function ajax(url, data, options) {
@@ -13,7 +14,7 @@ export default function ajax(url, data, options) {
     method = options.method;
   }
 
-  if (data && method == 'get')	{
+  if (data && method === 'get')	{
     let first = true;
 
     for (const key of Object.keys(data))		{
@@ -30,33 +31,33 @@ export default function ajax(url, data, options) {
 
   request.open(method.toUpperCase(), url, true);
 
-  request.onload = function (event)	{
-    if (this.status != 200)		{
+  request.onload = function onload()	{
+    if (this.status != 200)	{ // eslint-disable-line
       return resolver.reject(this.status);
     }
 
     let response = this.responseText;
 
-    if (this.getResponseHeader('Content-Type').starts_with('application/json'))		{
+    if (this.getResponseHeader('Content-Type').indexOf('application/json') === 0)		{
       response = JSON.parse(response);
     }
 
-    resolver.resolve(response);
+    return resolver.resolve(response);
   };
 
-  request.onerror = function (error)	{
+  request.onerror = function onerror(error)	{
     resolver.reject(error);
   };
 
-  request.ontimeout = function ()	{
+  request.ontimeout = function ontimeout()	{
     resolver.reject('timeout');
   };
 
-  request.onabort = function ()	{
+  request.onabort = function onabort()	{
     resolver.reject('abort');
   };
 
-  if (data && method == 'post')	{
+  if (data && method === 'post')	{
     const parameters = JSON.stringify(data);
 
     request.setRequestHeader('Content-Type', 'application/json;charset=UTF-8');

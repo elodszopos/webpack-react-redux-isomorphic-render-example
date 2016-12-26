@@ -1,5 +1,3 @@
-import base_configuration from './webpack.config.server';
+const baseConfiguration = require('./webpack.config.server');
 
-// Nothing special to add here.
-
-export default base_configuration;
+module.exports = baseConfiguration;

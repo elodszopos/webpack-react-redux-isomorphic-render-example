@@ -1,33 +1,34 @@
-export function download_file(content, name) {
+/* eslint no-param-reassign: 0, no-console: 0 */
+export function downloadFile(content, name) {
   if (typeof content === 'object')	{
     content = JSON.stringify(content, null, 2);
   }
 
-  const fake_form = document.createElement('form');
+  const fakeForm = document.createElement('form');
 
-  fake_form.setAttribute('action', '/download');
-  fake_form.setAttribute('method', 'post');
+  fakeForm.setAttribute('action', '/download');
+  fakeForm.setAttribute('method', 'post');
 
-  const file_name = document.createElement('textarea');
+  const fileName = document.createElement('textarea');
 
-  file_name.setAttribute('name', 'filename');
-  file_name.innerHTML = name;
+  fileName.setAttribute('name', 'filename');
+  fileName.innerHTML = name;
 
-  fake_form.appendChild(file_name);
+  fakeForm.appendChild(fileName);
 
   const text = document.createElement('textarea');
 
   text.setAttribute('name', 'data');
   text.innerHTML = content;
 
-  fake_form.appendChild(text);
+  fakeForm.appendChild(text);
 
-  document.body.appendChild(fake_form[0]);
-  fake_form[0].submit();
-  document.body.removeChild(fake_form[0]);
+  document.body.appendChild(fakeForm[0]);
+  fakeForm[0].submit();
+  document.body.removeChild(fakeForm[0]);
 }
 
-export function upload_text_file(file) {
+export function uploadTextFile(file) {
   const reader = new FileReader();
 
   reader.onload = (event) =>	{

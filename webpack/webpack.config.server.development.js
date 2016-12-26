@@ -1,13 +1,9 @@
-import language from '../code/common/language';
+const baseConfiguration = require('./webpack.config.server');
+const applicationConfiguration = require('../code/common/configuration');
 
-import webpack from 'webpack';
-import base_configuration from './webpack.config.server';
-
-import application_configuration from '../code/common/configuration';
-
-const configuration = Object.clone(base_configuration);
+const configuration = { ...baseConfiguration };
 
 // Network path for static files: fetch all statics from webpack development server
-configuration.output.publicPath = `http://${application_configuration.development.webpack.development_server.host}:${application_configuration.development.webpack.development_server.port}${configuration.output.publicPath}`;
+configuration.output.publicPath = `http://${applicationConfiguration.development.webpack.development_server.host}:${applicationConfiguration.development.webpack.development_server.port}${configuration.output.publicPath}`; // eslint-disable-line
 
-export default configuration;
+module.exports = configuration;

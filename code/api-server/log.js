@@ -1,3 +1,3 @@
-import log from '../common/log';
+const log = require('../common/log');
 
-export default log('webapp api');
+module.exports = log('webapp.api');

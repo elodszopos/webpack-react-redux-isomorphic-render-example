@@ -1,11 +1,8 @@
-import language from '../code/common/language';
+const webpack = require('webpack');
+const baseConfig = require('./webpack.config.client');
+const appConfig = require('../code/common/configuration');
 
-import webpack from 'webpack';
-import base_configuration from './webpack.config.client';
-
-import application_configuration from '../code/common/configuration';
-
-const configuration = base_configuration({
+const configuration = baseConfig({
   development: true,
   css_bundle: true,
 });
@@ -20,9 +17,9 @@ configuration.plugins.push(
       BABEL_ENV: JSON.stringify('development/client'),
     },
 
-    _production_: false,
-    _development_: true,
-    _development_tools_: false,  // enable/disable redux-devtools
+    __PRODUCTION__: false,
+    __DEVELOPMENT__: true,
+    __DEVTOOLS__: false,  // enable/disable redux-devtools
   }),
 
   // faster code reload on changes
@@ -33,37 +30,37 @@ configuration.plugins.push(
 );
 
 // enable webpack development server
-configuration.entry.main =
-[
-  `webpack-hot-middleware/client?path=http://${application_configuration.development.webpack.development_server.host}:${application_configuration.development.webpack.development_server.port}/__webpack_hmr`,
+configuration.entry.main = [
+  `webpack-hot-middleware/client?path=http://${appConfig.development.webpack.development_server.host}:${appConfig.development.webpack.development_server.port}/__webpack_hmr`, // eslint-disable-line
   configuration.entry.main,
 ];
 
 // network path for static files: fetch all statics from webpack development server
-configuration.output.publicPath = `http://${application_configuration.development.webpack.development_server.host}:${application_configuration.development.webpack.development_server.port}${configuration.output.publicPath}`;
+configuration.output.publicPath = `http://${appConfig.development.webpack.development_server.host}:${appConfig.development.webpack.development_server.port}${configuration.output.publicPath}`;  // eslint-disable-line
 
 // Add React Hot Module Replacement plugin to `babel-loader`
 
-const javascript_loader = configuration.module.loaders.filter(loader => loader.test.toString() === (/\.js$/).toString())
-  .first();
+const jsLoader = configuration.module.loaders.filter(loader => loader.test.toString() === (/\.js$/).toString())[0];
 
-javascript_loader.query = javascript_loader.query || {};
+jsLoader.query = jsLoader.query || {};
 
-javascript_loader.query.plugins = javascript_loader.query.plugins || [];
+jsLoader.query.plugins = jsLoader.query.plugins || [];
 
-javascript_loader.query.plugins = javascript_loader.query.plugins.concat([[
+jsLoader.query.plugins = jsLoader.query.plugins.concat([[
   'react-transform',
   {
-    transforms: [{
-      transform: 'react-transform-catch-errors',
-      imports: ['react', 'redbox-react'],
-    },
-    {
-      transform: 'react-transform-hmr',
-      imports: ['react'],
-      locals: ['module'],
-    }],
+    transforms: [
+      {
+        transform: 'react-transform-catch-errors',
+        imports: ['react', 'redbox-react'],
+      },
+      {
+        transform: 'react-transform-hmr',
+        imports: ['react'],
+        locals: ['module'],
+      },
+    ],
   },
 ]]);
 
-export default configuration;
+module.exports = configuration;

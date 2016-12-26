@@ -2,11 +2,11 @@ export function get() {
   const action =
     {
       promise: async (http) =>		{
-        const user_ids = await http.get('/api/example/users');
+        const userIds = await http.get('/api/example/users');
 
-        return Promise.all(user_ids.map(id => http.get(`/api/example/users/${id}`)));
+        return Promise.all(userIds.map(id => http.get(`/api/example/users/${id}`)));
       },
-      events: ['retrieving users', 'users retrieved', 'users retrieval failed'],
+      events: ['retrievingUsers', 'usersRetrieved', 'usersRetrievalFailed'],
     };
 
   return action;
@@ -18,7 +18,7 @@ export function add(info) {
   const action =
     {
       promise: http => http.post('/api/example/users', info),
-      events: ['adding user', 'user added', 'adding user failed'],
+      events: ['addingUsers', 'userAdded', 'addingUserFailed'],
     };
 
   return action;
@@ -28,12 +28,12 @@ export function remove(id) {
   const action =
     {
       promise: http => http.delete(`/api/example/users/${id}`),
-      events: ['deleting user', 'user deleted', 'deleting user failed'],
+      events: ['deletingUser', 'userDeleted', 'deletingUserFailed'],
     };
 
   return action;
 }
 
-export function dismiss_adding_error() {
-  return { type: 'adding error dismissed' };
+export function dismissAddingError() {
+  return { type: 'addingErrorDismissed' };
 }

@@ -1,6 +1,6 @@
-import path from 'path';
+const path = require('path');
 
-import webService from 'web-service';
+const webService = require('web-service');
 
 const web = webService({ log });
 

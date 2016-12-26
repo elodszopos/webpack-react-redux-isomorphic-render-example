@@ -1,33 +1,8 @@
-import React, { Component, PropTypes } from 'react';
+import React, { PureComponent, PropTypes } from 'react';
 import styler from 'react-styling';
 
-export default class Button extends Component
-{
-  static propTypes =
-  {
-    text: PropTypes.string.isRequired,
-    on_click: PropTypes.func.isRequired,
-    busy: PropTypes.bool,
-    style: PropTypes.object,
-  }
-
-  render()	{
-    const { busy, on_click, text } = this.props;
-
-    const markup =
-		(
-			<div style={merge(style.container, this.props.style)}>
-				<span className="spinner" style={busy ? style.spinner.show : style.spinner.hide} />
-				<button disabled={busy} onClick={on_click} style={busy ? style.button.hide : style.button.show}>{text}</button>
-			</div>
-		);
-
-    return markup;
-  }
-}
-
-const style = styler
-`
+const style = styler // eslint-disable-line
+  `
 	container
 		position : relative
 		display  : inline-block
@@ -55,3 +30,23 @@ const style = styler
 			transition       : opacity 200ms ease-out
 			transition-delay : 300ms
 `;
+
+export default class Button extends PureComponent {
+  static propTypes = {
+    text: PropTypes.string.isRequired,
+    onClick: PropTypes.func.isRequired,
+    busy: PropTypes.bool,
+    style: PropTypes.object,
+  };
+
+  render()	{
+    const { busy, onClick, text } = this.props;
+
+    return (
+      <div style={{ ...style.container, ...this.props.style }}>
+        <span className="spinner" style={busy ? style.spinner.show : style.spinner.hide} />
+        <button disabled={busy} onClick={onClick} style={busy ? style.button.hide : style.button.show}>{text}</button>
+      </div>
+    );
+  }
+}

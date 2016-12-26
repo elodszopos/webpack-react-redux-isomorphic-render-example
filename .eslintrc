@@ -162,7 +162,8 @@
       "_style",
       "__DEVELOPMENT__",
       "__CLIENT__",
-      "__DEVTOOLS__"
+      "__DEVTOOLS__",
+      "__PRODUCTION__"
     ] }],
     "no-unneeded-ternary": 2,
     "no-unreachable": 2,
@@ -272,6 +273,7 @@
   "globals": {
     "__DEVELOPMENT__": true,
     "__DEVTOOLS__": true,
+    "__PRODUCTION__": true,
     "__DLLS__": true,
     "socket": true,
     "chai": true,
@@ -280,6 +282,12 @@
     "sinon": true,
     "shallow": true,
     "mount": true,
-    "testHelpers": true
+    "clone": true,
+    "testHelpers": true,
+    "log": true,
+    "configuration": true,
+    "extend": true,
+    "rootFolder": true,
+    "exists": true
   }
 }

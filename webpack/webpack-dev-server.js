@@ -1,41 +1,33 @@
-import express from 'express';
-import webpack from 'webpack';
-import configuration from './webpack.config.client.development';
+const Express = require('express');
+const webpack = require('webpack');
+const devMiddleware = require('webpack-dev-middleware');
+const hotMiddleware = require('webpack-hot-middleware');
+const configuration = require('./webpack.config.client.development');
+const appConfig = require('../code/common/configuration');
 
-import application_configuration from '../code/common/configuration';
-
-// http://webpack.github.io/docs/webpack-dev-server.html
-const development_server_options =
-  {
-    quiet: true, // don’t output anything to the console
-    noInfo: true, // suppress boring information
-    hot: true, // adds the HotModuleReplacementPlugin and switch the server to hot mode. Note: make sure you don’t add HotModuleReplacementPlugin twice
-    inline: true, // also adds the webpack/hot/dev-server entry
-
-	// You can use it in two modes:
-	// watch mode (default): The compiler recompiles on file change.
-	// lazy mode: The compiler compiles on every request to the entry point.
-    lazy: false,
-
-	// network path for static files: fetch all statics from webpack development server
-    publicPath: configuration.output.publicPath,
-
-    headers: { 'Access-Control-Allow-Origin': '*' },
-    stats: { colors: true },
-  };
+const options = {
+  quiet: true,
+  noInfo: true,
+  hot: true,
+  inline: true,
+  lazy: false,
+  publicPath: configuration.output.publicPath,
+  headers: { 'Access-Control-Allow-Origin': '*' },
+  stats: { colors: true },
+};
 
 const compiler = webpack(configuration);
 
-const development_server = new express();
+const devServer = new Express();
 
-development_server.use(require('webpack-dev-middleware')(compiler, development_server_options));
-development_server.use(require('webpack-hot-middleware')(compiler));
+devServer.use(devMiddleware(compiler, options));
+devServer.use(hotMiddleware(compiler));
 
-development_server.listen(application_configuration.development.webpack.development_server.port, (error) => {
-  if (error)	{
-    console.error(error.stack || error);
+devServer.listen(appConfig.development.webpack.development_server.port, (error) => {
+  if (error) {
+    console.error(error.stack || error); // eslint-disable-line no-console
     throw error;
   }
 
-  console.log('[webpack-dev-server] Running');
+  console.log('[webpack-dev-server] Running'); // eslint-disable-line no-console
 });

@@ -1,7 +1,5 @@
-import { client_configuration } from 'universal-webpack';
-import settings from './universal-webpack-settings';
-import configuration from './webpack.config';
+const universalWebpack = require('universal-webpack');
+const configuration = require('./webpack.config');
+const universalWebpackConfig = require('./common').universalWebpackConfig;
 
-export default function (options) {
-  return client_configuration(configuration, settings, options);
-}
+module.exports = options => universalWebpack.client_configuration(configuration, universalWebpackConfig, options);
