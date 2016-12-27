@@ -80,7 +80,7 @@ function print(source, level, message, time) {
   return console.log(preamble(source, level, time, colours[level.toString()] || colours['...']) + message);
 }
 
-module.exports = function create(name) {
+function create(name) {
   const consoleOutput = new Stream();
 
   consoleOutput.writable = true;
@@ -136,4 +136,8 @@ module.exports = function create(name) {
   const logConfig = (__PRODUCTION__ || process.env.NODE_ENV === 'production') ? prodLog : devLog;
 
   return bunyan.createLogger(Object.assign({}, logConfig, { name }));
+}
+
+module.exports = {
+  create,
 };

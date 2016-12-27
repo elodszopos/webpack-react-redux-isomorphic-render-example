@@ -1,0 +1,35 @@
+.container {
+  display: inline-block;
+  position: relative;
+}
+
+.spinner {
+  position: absolute;
+  z-index: -1;
+  bottom: 0.25em;
+  transition: opacity 300ms ease-out;
+
+  &.visible {
+    opacity: 1;
+    transition-delay: 350ms;
+  }
+
+  &.hidden {
+    transition: opacity 200ms ease-out;
+    opacity: 0;
+  }
+}
+
+button {
+  &.show {
+    opacity: 1;
+    transition: opacity 150ms ease-out;
+    transition-delay: 100ms;
+  }
+
+  &.hide {
+    opacity: 0;
+    transition: opacity 200ms ease-out;
+    transition-delay: 300ms;
+  }
+}

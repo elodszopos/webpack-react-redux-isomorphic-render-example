@@ -1,11 +1,11 @@
 import React from 'react';
 import webPageServer from 'react-isomorphic-render/server';
 import { devtools } from 'universal-webpack';
-import Log from '../../webpack/servers/common/log';
+import { create as createLogger } from '../../webpack/servers/common/log';
 import configuration from '../../configuration.defaults';
 import common from '../client/react-isomorphic-render';
 
-const log = Log('webpage.renderer');
+const log = createLogger('webpage.renderer');
 
 export default function (parameters) {
   // Starts webpage rendering server

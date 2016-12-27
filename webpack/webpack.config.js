@@ -29,7 +29,7 @@ const configuration = {
         test: /\.scss$/,
         loaders: [
           'style-loader',
-          'css-loader?importLoaders=2&sourceMap',
+          'css-loader?modules&importLoaders=2&sourceMap',
           'postcss-loader',
           'sass-loader?outputStyle=expanded&sourceMap=true&sourceMapContents=true',
         ],

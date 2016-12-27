@@ -7,7 +7,7 @@ const configuration = baseConfig({
   css_bundle: true,
 });
 
-configuration.devtool = 'inline-eval-cheap-source-map';
+configuration.devtool = 'cheap-module-eval-source-map';
 
 configuration.plugins.push(new webpack.DefinePlugin({
   __PRODUCTION__: false,

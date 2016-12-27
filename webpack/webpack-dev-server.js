@@ -11,6 +11,7 @@ const options = {
   hot: true,
   inline: true,
   lazy: false,
+  reload: false,
   publicPath: configuration.output.publicPath,
   headers: { 'Access-Control-Allow-Origin': '*' },
   stats: { colors: true },
